@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
-import { } from '../modules/roster'
+import { fetchRosterPlayers, createRosterPlayer, updateRosterPlayer, deleteRosterPlayer,
+    setNewPlayerFirstName, setNewPlayerLastName } from '../modules/roster'
+import { rosterSelector } from '../selectors/roster'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,11 +15,13 @@ import Roster from '../components/Roster'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
+  fetchRosterPlayers,
+  createRosterPlayer,
+  updateRosterPlayer,
+  deleteRosterPlayer,
+  setNewPlayerFirstName,
+  setNewPlayerLastName
 }
-
-const mapStateToProps = (state) => ({
-  roster : state.roster
-})
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
@@ -33,4 +37,4 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapDispatchToProps)(Roster)
+export default connect(rosterSelector, mapDispatchToProps)(Roster)

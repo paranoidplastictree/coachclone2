@@ -1,4 +1,7 @@
 import { applyMiddleware, compose, createStore as createReduxStore } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
+import { apiMiddleware } from 'redux-api-middleware'
+import { apiTokenMiddleware } from '../middleware/apiToken'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
@@ -8,7 +11,7 @@ const createStore = (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const middleware = [thunk, apiTokenMiddleware, apiMiddleware, routerMiddleware(history)]
 
   // ======================================================
   // Store Enhancers
