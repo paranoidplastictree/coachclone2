@@ -10,7 +10,8 @@ export default class Roster extends Component {
     fetchRosterPlayers: PropTypes.func.isRequired,
     setNewPlayerFirstName: PropTypes.func.isRequired,
     setNewPlayerLastName: PropTypes.func.isRequired,
-    createRosterPlayer: PropTypes.func.isRequired
+    createRosterPlayer: PropTypes.func.isRequired,
+    deleteRosterPlayer: PropTypes.func.isRequired
   }
 
   componentDidMount () {
@@ -28,8 +29,20 @@ export default class Roster extends Component {
     this.props.setNewPlayerLastName(event.target.value)
   }
 
+  handleFirstNameChange (event) {
+    // TODO: implement, need id and value
+  }
+
+  handleLastNameChange (event) {
+    // TODO: implement, need id and value
+  }
+
   handleCreateNewPlayer () {
     this.props.createRosterPlayer(this.props.newPlayer)
+  }
+
+  handleDeletePlayer(value) {
+    this.props.deleteRosterPlayer(value)
   }
 
   renderPlayerRows (players) {
@@ -37,15 +50,15 @@ export default class Roster extends Component {
     if (players.size > 0) {
       players.toJS().forEach((player) => {
         rows.push(
-          <div key={player.id} className='player-row'>
+          <div key={player.firstName + player.lastName} className='player-row'>
             <div className='col'>
-              <input type='text' placeholder='First Name' />
+              <input type='text' placeholder='First Name' value={player.firstName} onChange={this.handleFirstNameChange} />
             </div>
             <div className='col'>
-              <input type='text' placeholder='Last Name' />
+              <input type='text' placeholder='Last Name' value={player.lastName} onChange={this.handleLastNameChange} />
             </div>
             <div className='col'>
-              <button className='btn btn-primary'>remove</button>
+              <button className='btn btn-primary' onClick={this.handleDeletePlayer(player.firstName + player.lastName)}>remove</button>
             </div>
           </div>)
       })
@@ -74,13 +87,13 @@ export default class Roster extends Component {
           </div>
           <div className='new-player player-row'>
             <div className='col'>
-              <input type='text' value={newPlayer.firstName} onChange={this.handleNewPlayerFirstNameChange} />
+              <input type='text' value={newPlayer.firstName} onChange={this.handleNewPlayerFirstNameChange.bind(this)} />
             </div>
             <div className='col'>
-              <input type='text' value={newPlayer.lastName} onChange={this.handleNewPlayerLastNameChange} />
+              <input type='text' value={newPlayer.lastName} onChange={this.handleNewPlayerLastNameChange.bind(this)} />
             </div>
             <div className='col'>
-              <button className='btn btn-primary'>Add</button>
+              <button className='btn btn-primary' onClick={this.handleCreateNewPlayer.bind(this)}>Add</button>
             </div>
           </div>
           <div className='players'>

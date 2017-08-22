@@ -51,7 +51,7 @@ export const CREATE_ROSTER_PLAYER_REQUEST = 'CREATE_ROSTER_PLAYER_REQUEST'
 export const CREATE_ROSTER_PLAYER_SUCCESS = 'CREATE_ROSTER_PLAYER_SUCCESS'
 export const CREATE_ROSTER_PLAYER_FAILURE = 'CREATE_ROSTER_PLAYER_FAILURE'
 
-export function createRosterPlayer (id, player) {
+export function createRosterPlayer (player) {
   return {
     [CALL_API_TOKEN]: {
       types: [
@@ -206,7 +206,8 @@ const initialState = Immutable.fromJS({
   players: [],
   newPlayer: {
     firstName: '',
-    lastName: ''
+    lastName: '',
+    id: null
   },
   isNewPlayerFormVisible: false
 })
